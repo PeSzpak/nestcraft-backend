@@ -1,45 +1,54 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Course } from './courses.entity';
 
 @Injectable()
 export class CoursesService {
     private courses: Course[] = [
         {
-            id: 1,
+            id: 2,
             name: 'Typescript do zero ao deploy',
             description: 'Usando os mais famosos frameworks do mercado para te ajudar a se destacar como profissional',
             tags: ['TypeScript', 'nodeJs', 'JavaScript', 'Nest.js']
         }
-    ]
+    ];
 
     findAll() {
-        return this.courses 
+        return this.courses;
     }
 
     findOne(id: number) {
-        return this.courses.find(course => course.id === id)
+        const course = this.courses.find(course => course.id === id);
+        if (!course) {
+            throw new NotFoundException(`Course ID ${id} not found`)
+        }
+        return course
     }
 
     create(createCourseDTO: any) {
-        this.courses.push(createCourseDTO)
+        const newCourse = {
+            id: Date.now(),
+            ...createCourseDTO,
+        };
+        this.courses.push(newCourse);
+        return newCourse;
     }
 
     update(id: number, updateCourseDTO: any) {
-        const existingCourse = this.findOne(id)
-        if(existingCourse) {
-            const index = this.courses.findIndex( course => course.id === id)
+        const index = this.courses.findIndex(course => course.id === id);
+        if (index >= 0) {
             this.courses[index] = {
-                id,
-                ...updateCourseDTO
-            }
+                ...this.courses[index],
+                ...updateCourseDTO,
+            };
+            return this.courses[index];
         }
     }
 
     remove(id: number) {
-        const index = this.courses.findIndex( course => course.id === id)
+        const index = this.courses.findIndex(course => course.id === id);
         if (index >= 0) {
-            this.courses.splice(index, 1)
+            const deleted = this.courses.splice(index, 1);
+            return deleted[0];
         }
     }
 }
-
