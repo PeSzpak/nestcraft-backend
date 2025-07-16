@@ -27,7 +27,7 @@ export class Course {
   })
   tags: Tag[];
 
-  @CreateDateColumn('timestamp')
+  @CreateDateColumn()
   created_at: Date;
 
   @BeforeInsert()

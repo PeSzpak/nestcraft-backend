@@ -1,4 +1,11 @@
-import { BeforeInsert, Column, CreateDateColumn, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Course } from './courses.entity';
 import { randomUUID } from 'node:crypto';
 
@@ -13,14 +20,14 @@ export class Tag {
   @ManyToMany(() => Course, (course) => course.tags)
   courses: Course[];
 
-  @CreateDateColumn('timestamp')
-    created_at: Date;
-  
-    @BeforeInsert()
-    generatedId() {
-      if (this.id) {
-        return;
-      }
-      this.id = randomUUID();
+  @CreateDateColumn()
+  created_at: Date;
+
+  @BeforeInsert()
+  generatedId() {
+    if (this.id) {
+      return;
     }
+    this.id = randomUUID();
+  }
 }
