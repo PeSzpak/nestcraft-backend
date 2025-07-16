@@ -12,4 +12,4 @@ export class Tag {
 
     @ManyToMany(() => Course, course => course.tags)
     courses: Course[]
-}
+}       

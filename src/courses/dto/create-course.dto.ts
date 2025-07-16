@@ -1,11 +1,11 @@
-import { IsString, Max} from "class-validator"
+import { IsString, Max, MaxLength} from "class-validator"
 
 export class CreateCourseDTO {
     @IsString()
     readonly name: string
 
     @IsString()
-    @Max(60) 
+    @MaxLength(300) 
     readonly description: string
 
     @IsString({each: true})
