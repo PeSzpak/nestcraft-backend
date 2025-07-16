@@ -19,12 +19,15 @@ export class CoursesService {
 
 
     async findAll() {
-        return this.courseRepository.find();
+        return this.courseRepository.find({
+            relations: ['tags']
+        });
     }
 
     async findOne(id: number) {
         const course = await this.courseRepository.findOne({
             where: { id },
+            relations: ['tags']
         })
         if (!course) {
             throw new NotFoundException(`Course ID ${id} not found`)
@@ -35,7 +38,7 @@ export class CoursesService {
     async create(createCourseDTO: CreateCourseDTO) {
         const tags = await Promise.all(
             createCourseDTO.tags.map(name => this.preloadTagByName(name))
-        ) 
+        )
         const course = this.courseRepository.create({
             ...createCourseDTO,
             tags,
@@ -44,11 +47,11 @@ export class CoursesService {
     }
 
     async update(id: number, updateCourseDTO: UpdateCourseDTO) {
-        const tags = 
-        updateCourseDTO.tags && 
-        (await Promise.all(
-            updateCourseDTO.tags.map(name => this.preloadTagByName(name))
-        ))
+        const tags =
+            updateCourseDTO.tags &&
+            (await Promise.all(
+                updateCourseDTO.tags.map(name => this.preloadTagByName(name))
+            ))
         const course = await this.courseRepository.preload({
             ...updateCourseDTO,
             id,
