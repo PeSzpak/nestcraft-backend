@@ -5,27 +5,25 @@ import { Tag } from 'src/courses/entities/tags.entity';
 import { DataSourceOptions } from 'typeorm';
 
 export const dataSourceOptions: DataSourceOptions = {
-    type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: 'docker',
-    database: 'nestcraft',
-    entities: [Course, Tag],
-    synchronize: false,
-
-}
+  type: 'postgres',
+  host: 'localhost',
+  port: 5432,
+  username: 'postgres',
+  password: 'docker',
+  database: 'nestcraft',
+  entities: [Course, Tag],
+  synchronize: false,
+};
 
 @Module({
-    imports: [
-        TypeOrmModule.forRootAsync({
-            useFactory: async () => {
-                return {
-                    ...dataSourceOptions,
-
-                }
-            },
-        }),
-    ],
+  imports: [
+    TypeOrmModule.forRootAsync({
+      useFactory: async () => {
+        return {
+          ...dataSourceOptions,
+        };
+      },
+    }),
+  ],
 })
-export class DatabaseModule { }
+export class DatabaseModule {}
