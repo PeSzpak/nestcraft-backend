@@ -12,7 +12,7 @@ export const dataSourceOptions: DataSourceOptions = {
     password: 'docker',
     database: 'nestcraft',
     entities: [Course, Tag],
-    synchronize: true,
+    synchronize: false,
 
 }
 
