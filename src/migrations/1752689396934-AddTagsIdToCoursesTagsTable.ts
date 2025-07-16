@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, TableColumn, TableForeignKey } from 'typeorm';
 
-export class AddCourseIdToCoursesTagsTable1752688220082 implements MigrationInterface {
+export class AddTagsIdToCoursesTagsTable1752689396934 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.addColumn(
       'courses_tags_tags',
       new TableColumn({
-        name: 'coursesId',
+        name: 'tagsId',
         type: 'uuid',
         isNullable: true,
       }),
@@ -13,9 +13,9 @@ export class AddCourseIdToCoursesTagsTable1752688220082 implements MigrationInte
     await queryRunner.createForeignKey(
       'courses_tags_tags',
       new TableForeignKey({
-        name: 'courses_tags_courses',
-        columnNames: ['coursesId'],
-        referencedTableName: 'courses',
+        name: 'courses_tags_tags',
+        columnNames: ['tagsId'],
+        referencedTableName: 'tags',
         referencedColumnNames: ['id'],
         onDelete: 'SET NULL',
       }),
@@ -23,8 +23,8 @@ export class AddCourseIdToCoursesTagsTable1752688220082 implements MigrationInte
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('courses_tags_tags', 'courses_tags_courses');
+    await queryRunner.dropForeignKey('courses_tags_tags', 'courses_tags_tags');
 
-    await queryRunner.dropColumn('courses_tags_tags', 'coursesId');
+    await queryRunner.dropColumn('courses_tags_tags', 'tagsId');
   }
 }

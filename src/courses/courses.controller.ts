@@ -5,10 +5,8 @@ import {
   Get,
   HttpCode,
   Param,
-  ParseIntPipe,
   Post,
   Put,
-  Res,
 } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import { CreateCourseDTO } from './dto/create-course.dto';
@@ -23,7 +21,7 @@ export class CoursesController {
     return this.courseService.findAll();
   }
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: string) {
+  findOne(@Param('id') id: string) {
     return this.courseService.findOne(id);
   }
 
@@ -33,13 +31,13 @@ export class CoursesController {
   }
 
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: string, @Body() updateCourseDTO: UpdateCourseDTO) {
+  update(@Param('id') id: string, @Body() updateCourseDTO: UpdateCourseDTO) {
     return this.courseService.update(id, updateCourseDTO);
   }
 
   @Delete(':id')
   @HttpCode(204)
-  remove(@Param('id', ParseIntPipe) id: string) {
+  remove(@Param('id') id: string) {
     return this.courseService.remove(id);
   }
 }
