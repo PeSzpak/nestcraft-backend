@@ -1,7 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { CoursesService } from './courses.service';
 import { CreateCourseDTO } from './dto/create-course.dto';
-import { Course } from './entities/courses.entity';
 import { UpdateCourseDTO } from './dto/update-course.dto';
 
 describe('CoursesService unit tests', () => {
@@ -117,11 +116,11 @@ describe('CoursesService unit tests', () => {
     service['courseRepository'] = mockCourseRepository;
     //@ts-expect-error defined part of methods
     service['tagRepository'] = mockTagRepository;
-  
+
     const course = await service.remove(id);
-  
+
     expect(mockCourseRepository.findOne).toHaveBeenCalledWith({
-      where: { id }
+      where: { id },
     });
     expect(mockCourseRepository.remove).toHaveBeenCalledWith(expectOutputCourses);
     expect(expectOutputCourses).toStrictEqual(course);
