@@ -59,10 +59,11 @@ export class CoursesService {
     const course = await this.courseRepository.findOne({
       where: { id },
     });
+    
     if (!course) {
       throw new NotFoundException(`Course ID ${id} not found`);
     }
-    return;
+    return this.courseRepository.remove(course);
   }
 
   private async preloadTagByName(name: string): Promise<Tag> {
