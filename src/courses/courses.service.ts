@@ -59,7 +59,7 @@ export class CoursesService {
     const course = await this.courseRepository.findOne({
       where: { id },
     });
-    
+
     if (!course) {
       throw new NotFoundException(`Course ID ${id} not found`);
     }

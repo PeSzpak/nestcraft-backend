@@ -3,7 +3,7 @@ import { CoursesService } from './courses.service';
 import { CreateCourseDTO } from './dto/create-course.dto';
 import { UpdateCourseDTO } from './dto/update-course.dto';
 
-describe('CoursesService unit tests', () => {
+describe('CoursesService', () => {
   let service: CoursesService;
   let id: string;
   let created_at: Date;
