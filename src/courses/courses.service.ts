@@ -8,13 +8,11 @@ import { UpdateCourseDTO } from './dto/update-course.dto';
 
 @Injectable()
 export class CoursesService {
-  constructor(
-    @InjectRepository(Course)
-    private readonly courseRepository: Repository<Course>,
+  @InjectRepository(Course)
+  private readonly courseRepository: Repository<Course>;
 
-    @InjectRepository(Tag)
-    private readonly tagRepository: Repository<Tag>,
-  ) {}
+  @InjectRepository(Tag)
+  private readonly tagRepository: Repository<Tag>;
 
   async findAll() {
     return this.courseRepository.find({
@@ -61,10 +59,11 @@ export class CoursesService {
     const course = await this.courseRepository.findOne({
       where: { id },
     });
+    
     if (!course) {
       throw new NotFoundException(`Course ID ${id} not found`);
     }
-    return;
+    return this.courseRepository.remove(course);
   }
 
   private async preloadTagByName(name: string): Promise<Tag> {
