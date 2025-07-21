@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
+import request from 'supertest';
 import { App } from 'supertest/types';
 import 'dotenv/config';
-import { Course } from 'src/courses/entities/courses.entity';
-import { Tag } from 'src/courses/entities/tags.entity';
+import { Course } from '../src/courses/entities/courses.entity';
+import { Tag } from '../src/courses/entities/tags.entity';
+import { CoursesModule } from '../src/courses/courses.module';
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { CoursesModule } from 'src/courses/courses.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 describe('AppController (e2e)', () => {
@@ -37,6 +37,7 @@ describe('AppController (e2e)', () => {
         }),
       ],
     }).compile();
+
     app = module.createNestApplication();
     await app.init();
 
@@ -54,7 +55,21 @@ describe('AppController (e2e)', () => {
     await dataSource.destroy();
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer()).get('/').expect(200).expect('Hello World!');
+  
+
+  describe('POST /courses', () => {
+    it('should create a course', async () => {
+      const res = await request(app.getHttpServer()).post('/courses').send(data).expect(201)
+      expect(res.body.id).toBeDefined()
+      expect(res.body.name).toEqual(data.name)
+      expect(res.body.description).toEqual(data.description)
+      expect(res.body.created_at).toBeDefined()
+      expect(res.body.tags[0].name).toEqual(data.tags[0])
+      expect(res.body.tags[1].name).toEqual(data.tags[1])
+    });
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 });
