@@ -8,6 +8,7 @@ import { Tag } from '../src/courses/entities/tags.entity';
 import { CoursesModule } from '../src/courses/courses.module';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { send } from 'process';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication<App>;
@@ -96,6 +97,28 @@ describe('AppController (e2e)', () => {
       expect(res.body.id).toEqual(courses[0].id);
       expect(res.body.name).toEqual(courses[0].name);
       expect(res.body.description).toEqual(courses[0].description);
+    });
+  });
+
+  describe('PUT /courses/:id', () => {
+    it('should update a course', async () => {
+      const updateData = {
+        name: 'New name',
+        description: 'nEw.Js',
+        tags: ['new one', 'New two'],
+      };
+
+      const res = await request(app.getHttpServer())
+        .put(`/courses/${courses[0].id}`)
+        .send(updateData)
+        .expect(200);
+
+      expect(res.body.id).toEqual(courses[0].id);
+      expect(res.body.name).toEqual('New name');
+      expect(res.body.description).toEqual('nEw.Js');
+      expect(res.body.tags).toHaveLength(2);
+      expect(res.body.tags[0].name).toEqual('new one');
+      expect(res.body.tags[1].name).toEqual('New two');
     });
   });
 });
