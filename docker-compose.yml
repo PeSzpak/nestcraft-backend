@@ -12,3 +12,13 @@ services:
     environment:
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=nestcraft
+
+  dbtest:
+    build: .
+    container_name: teste-db
+    restart: always
+    ports:
+      - '5433:5432'
+    environment:
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=nestcraft
