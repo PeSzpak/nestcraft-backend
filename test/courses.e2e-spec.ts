@@ -121,4 +121,13 @@ describe('AppController (e2e)', () => {
       expect(res.body.tags[1].name).toEqual('New two');
     });
   });
+
+  describe('DELETE /courses:id', () => {
+    it('should delete a course', async () => {
+      const res = await request(app.getHttpServer())
+        .delete(`/courses/${courses[0].id}`)
+        .expect(204)
+        .expect({});
+    });
+  });
 });
