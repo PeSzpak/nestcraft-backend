@@ -51,9 +51,7 @@ describe('CoursesService', () => {
     expect(service).toBeDefined();
   });
   it('should create a course', async () => {
-    //@ts-expect-error defined part of methods
     service['courseRepository'] = mockCourseRepository;
-    //@ts-expect-error defined part of methods
     service['tagRepository'] = mockTagRepository;
 
     const createCourseDTO: CreateCourseDTO = {
@@ -69,9 +67,7 @@ describe('CoursesService', () => {
   });
 
   it('should list all courses', async () => {
-    //@ts-expect-error defined part of methods
-    service['courseRepository'] = mockCourseRepository;
-    //@ts-expect-error defined part of methods
+      service['courseRepository'] = mockCourseRepository;
     service['tagRepository'] = mockTagRepository;
 
     const courses = await service.findAll();
@@ -81,9 +77,7 @@ describe('CoursesService', () => {
   });
 
   it('should gets a course by id', async () => {
-    //@ts-expect-error defined part of methods
     service['courseRepository'] = mockCourseRepository;
-    //@ts-expect-error defined part of methods
     service['tagRepository'] = mockTagRepository;
 
     const course = await service.findOne(id);
@@ -93,9 +87,7 @@ describe('CoursesService', () => {
   });
 
   it('should update a course', async () => {
-    //@ts-expect-error defined part of methods
     service['courseRepository'] = mockCourseRepository;
-    //@ts-expect-error defined part of methods
     service['tagRepository'] = mockTagRepository;
 
     const updateCourseDTO: UpdateCourseDTO = {
@@ -112,9 +104,7 @@ describe('CoursesService', () => {
   });
 
   it('should delete a course', async () => {
-    //@ts-expect-error defined part of methods
     service['courseRepository'] = mockCourseRepository;
-    //@ts-expect-error defined part of methods
     service['tagRepository'] = mockTagRepository;
 
     const course = await service.remove(id);
