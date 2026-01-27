@@ -3,12 +3,11 @@ import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Course } from 'src/courses/entities/courses.entity';
 import { Tag } from 'src/courses/entities/tags.entity';
-import { DataSourceOptions } from 'typeorm';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      useFactory: async (configService: ConfigService) => {
+      useFactory: (configService: ConfigService) => {
         return {
           type: 'postgres',
           host: configService.get('DB_HOST'),

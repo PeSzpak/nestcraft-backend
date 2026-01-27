@@ -2,17 +2,30 @@ import { randomUUID } from 'node:crypto';
 import { CoursesService } from './courses.service';
 import { CreateCourseDTO } from './dto/create-course.dto';
 import { UpdateCourseDTO } from './dto/update-course.dto';
+import { Course } from './entities/courses.entity';
+import { Tag } from './entities/tags.entity';
+
+interface MockRepository {
+  create: jest.Mock;
+  save: jest.Mock;
+  update: jest.Mock;
+  preload: jest.Mock;
+  findAll: jest.Mock;
+  find: jest.Mock;
+  findOne: jest.Mock;
+  remove: jest.Mock;
+}
 
 describe('CoursesService', () => {
   let service: CoursesService;
   let id: string;
   let created_at: Date;
-  let expectOutputTags: any;
-  let expectOutputCourses: any;
-  let mockCourseRepository: any;
-  let mockTagRepository: any;
+  let expectOutputTags: Tag[];
+  let expectOutputCourses: Course;
+  let mockCourseRepository: MockRepository;
+  let mockTagRepository: Pick<MockRepository, 'create' | 'findOne'>;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     service = new CoursesService();
     id = randomUUID();
     created_at = new Date();
@@ -21,7 +34,7 @@ describe('CoursesService', () => {
         id,
         name: 'nestJs',
         created_at,
-      },
+      } as Tag,
     ];
     expectOutputCourses = {
       id,
@@ -29,7 +42,7 @@ describe('CoursesService', () => {
       description: 'test description',
       created_at,
       tags: expectOutputTags,
-    };
+    } as Course;
 
     mockCourseRepository = {
       create: jest.fn().mockReturnValue(Promise.resolve(expectOutputCourses)),
@@ -51,7 +64,9 @@ describe('CoursesService', () => {
     expect(service).toBeDefined();
   });
   it('should create a course', async () => {
+    // @ts-expect-error - Mocking private readonly property for testing
     service['courseRepository'] = mockCourseRepository;
+    // @ts-expect-error - Mocking private readonly property for testing
     service['tagRepository'] = mockTagRepository;
 
     const createCourseDTO: CreateCourseDTO = {
@@ -67,7 +82,9 @@ describe('CoursesService', () => {
   });
 
   it('should list all courses', async () => {
-      service['courseRepository'] = mockCourseRepository;
+    // @ts-expect-error - Mocking private readonly property for testing
+    service['courseRepository'] = mockCourseRepository;
+    // @ts-expect-error - Mocking private readonly property for testing
     service['tagRepository'] = mockTagRepository;
 
     const courses = await service.findAll();
@@ -77,7 +94,9 @@ describe('CoursesService', () => {
   });
 
   it('should gets a course by id', async () => {
+    // @ts-expect-error - Mocking private readonly property for testing
     service['courseRepository'] = mockCourseRepository;
+    // @ts-expect-error - Mocking private readonly property for testing
     service['tagRepository'] = mockTagRepository;
 
     const course = await service.findOne(id);
@@ -87,7 +106,9 @@ describe('CoursesService', () => {
   });
 
   it('should update a course', async () => {
+    // @ts-expect-error - Mocking private readonly property for testing
     service['courseRepository'] = mockCourseRepository;
+    // @ts-expect-error - Mocking private readonly property for testing
     service['tagRepository'] = mockTagRepository;
 
     const updateCourseDTO: UpdateCourseDTO = {
@@ -104,7 +125,9 @@ describe('CoursesService', () => {
   });
 
   it('should delete a course', async () => {
+    // @ts-expect-error - Mocking private readonly property for testing
     service['courseRepository'] = mockCourseRepository;
+    // @ts-expect-error - Mocking private readonly property for testing
     service['tagRepository'] = mockTagRepository;
 
     const course = await service.remove(id);

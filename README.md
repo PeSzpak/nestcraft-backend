@@ -1,4 +1,4 @@
-# 🎓 NestCraft Backend
+# NestCraft Backend
 
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
@@ -6,7 +6,7 @@
 
 Uma API RESTful robusta para gerenciamento de cursos e tags, construída com NestJS, TypeORM e PostgreSQL. Este projeto demonstra as melhores práticas de desenvolvimento backend incluindo arquitetura modular, validação de dados, migrações de banco de dados e testes end-to-end.
 
-## 📋 Índice
+## Índice
 
 - [Visão Geral](#-visão-geral)
 - [Arquitetura](#-arquitetura)
@@ -20,7 +20,7 @@ Uma API RESTful robusta para gerenciamento de cursos e tags, construída com Nes
 - [Migrations](#-migrations)
 - [Docker](#-docker)
 
-## 🎯 Visão Geral
+## Visão Geral
 
 O **NestCraft Backend** é uma aplicação backend completa que implementa um sistema de gerenciamento de cursos com tags. O projeto utiliza TypeScript e segue os princípios SOLID e clean architecture através do framework NestJS.
 
@@ -35,7 +35,7 @@ O **NestCraft Backend** é uma aplicação backend completa que implementa um si
 - ✅ Containerização com Docker
 - ✅ Configuração por variáveis de ambiente
 
-## 🏗️ Arquitetura
+## Arquitetura
 
 O projeto segue a arquitetura modular do NestJS, organizada em camadas:
 
@@ -57,7 +57,7 @@ O projeto segue a arquitetura modular do NestJS, organizada em camadas:
 - **CoursesModule**: Gerenciamento de cursos e tags
 - **DatabaseModule**: Configuração do TypeORM e conexão com PostgreSQL
 
-## 🛠️ Tecnologias
+## Tecnologias
 
 ### Core
 - **[NestJS](https://nestjs.com/)** v11.0.1 - Framework backend progressivo
@@ -90,7 +90,7 @@ O projeto segue a arquitetura modular do NestJS, organizada em camadas:
 - **[ESLint](https://eslint.org/)** v9.18.0 - Linter
 - **[Prettier](https://prettier.io/)** v3.4.2 - Formatador de código
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 nestcraft-backend/
@@ -135,7 +135,7 @@ nestcraft-backend/
 └── .env.example                     # Exemplo de variáveis de ambiente
 ```
 
-## 💾 Banco de Dados
+## Banco de Dados
 
 ### Modelo de Dados
 
@@ -145,10 +145,10 @@ O banco de dados utiliza um relacionamento **many-to-many** entre Courses e Tags
 ┌─────────────────────┐         ┌──────────────────────────┐         ┌─────────────────────┐
 │      COURSES        │         │   COURSES_TAGS_TAGS      │         │        TAGS         │
 ├─────────────────────┤         ├──────────────────────────┤         ├─────────────────────┤
-│ id (UUID) PK        │◄───────┤ coursesId (UUID) FK      │         │ id (UUID) PK        │
-│ name (VARCHAR)      │         │ tagsId (UUID) FK         ├────────►│ name (VARCHAR)      │
-│ description (VARCHAR)│        │ id (UUID) PK             │         │ created_at (TIMESTAMP)│
-│ created_at (TIMESTAMP)│       │ created_at (TIMESTAMP)   │         └─────────────────────┘
+│id (UUID) PK         │◄─────── ┤ coursesId (UUID) FK      │         │id (UUID) PK         │
+│name (VARCHAR)       │         │ tagsId (UUID) FK         ├────────►│name (VARCHAR)       │
+│description(VARCHAR) │         │ id (UUID) PK             │         │created_at(TIMESTAMP)│
+│created_at(TIMESTAMP)│         │ created_at (TIMESTAMP)   │         └─────────────────────┘
 └─────────────────────┘         └──────────────────────────┘
 ```
 
@@ -171,7 +171,7 @@ O banco de dados utiliza um relacionamento **many-to-many** entre Courses e Tags
 - created_at: timestamp
 ```
 
-## ⚙️ Configuração
+## Configuração
 
 ### Variáveis de Ambiente
 
@@ -193,7 +193,7 @@ DB_NAME=nestcraft
   - `forbidNonWhitelisted: true` - Retorna erro se propriedades extras forem enviadas
   - `transform: true` - Transforma automaticamente os payloads para instâncias DTO
 
-## 🚀 Instalação e Execução
+## Instalação e Execução
 
 ### Pré-requisitos
 
@@ -251,7 +251,7 @@ pnpm run start:prod
 
 A API estará disponível em `http://localhost:3000`
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### Courses
 
@@ -347,7 +347,7 @@ Os DTOs implementam as seguintes validações:
 - **description**: Obrigatório, deve ser string, máximo 300 caracteres
 - **tags**: Obrigatório, deve ser array de strings
 
-## 🧪 Testes
+## Testes
 
 O projeto conta com testes unitários e end-to-end (E2E).
 
@@ -384,7 +384,7 @@ Os testes E2E cobrem todos os endpoints:
 4. ✅ PUT /courses/:id - Atualização de curso
 5. ✅ DELETE /courses/:id - Remoção de curso
 
-## 📦 Migrations
+## Migrations
 
 As migrations são versionadas e aplicadas sequencialmente:
 
@@ -412,7 +412,7 @@ pnpm run typeorm migration:create src/migrations/NomeDaMigration
 pnpm run typeorm migration:generate src/migrations/NomeDaMigration -- -d src/database/orm-cli-config.ts
 ```
 
-## 🐳 Docker
+## Docker
 
 O projeto utiliza Docker Compose para facilitar o setup do ambiente.
 
@@ -449,7 +449,7 @@ docker-compose down -v
 
 Os dados do banco de desenvolvimento são persistidos em `.docker/dbdata/`. Adicione esta pasta ao `.gitignore`.
 
-## 📝 Scripts Disponíveis
+## Scripts Disponíveis
 
 ```bash
 # Desenvolvimento
@@ -471,7 +471,7 @@ pnpm run lint           # Executa ESLint
 pnpm run format         # Formata código com Prettier
 ```
 
-## 🎓 Como Funciona
+## Como Funciona
 
 ### Fluxo de Requisição
 
@@ -518,11 +518,11 @@ async create(createCourseDTO: CreateCourseDTO) {
 // 4. Retorna curso criado com ID e timestamps
 ```
 
-## 🤝 Contribuindo
+## ontribuindo
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests.
 
-## 📄 Licença
+## Licença
 
 Este projeto está sob a licença UNLICENSED.
 
