@@ -150,3 +150,8 @@ npm run test:e2e                # E2E contra o banco de teste (usa DB_USER/DB_PA
 ```
 
 Os E2E usam `synchronize: true` no banco de teste e cobrem POST, GET, GET por id, PUT e DELETE de `/courses`.
+
+## Limitações conhecidas
+
+- O `down` da migration `CreateCoursesTagsTable1752686922179` remove a tabela `courses_tags`, mas a tabela criada é `courses_tags_tags`; reverter até essa migration falha.
+- `GET /courses/:id` com um id que não é UUID chega ao Postgres e retorna 500 (não há `ParseUUIDPipe`).
